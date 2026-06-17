@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componentes do Arduino: Funções e Explicações</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        arduino: '#00979D',
+                        escuro: '#2C3E50',
+                        claro: '#ECF0F1'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .conteudo-texto {
+                @apply text-gray-700 leading-relaxed;
+            }
+            .secao-card {
+                @apply bg-white rounded-xl shadow-lg p-6 mb-8 transition-all hover:shadow-xl;
+            }
+            .titulo-componente {
+                @apply text-[#00979D] font-bold text-2xl mb-3;
+            }
+            .subtitulo {
+                @apply text-[#2C3E50] font-semibold text-lg mb-2;
+            }
+            .link-menu {
+                @apply block py-2 px-3 text-white hover:bg-white/20 rounded transition-colors;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Cabeçalho -->
+    <header class="bg-arduino text-white py-10 px-4 text-center">
+        <h1 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-2">Componentes do Arduino</h1>
+        <p class="text-lg opacity-90">Guia completo com funções, explicações detalhadas e resumidas</p>
+        <!-- Link para Cartão de Apresentação -->
+        <a href="cartao_apresentacao.html" class="inline-block mt-4 bg-white text-arduino px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+            <i class="fa fa-address-card mr-2"></i> Ver meu cartão de apresentação
+        </a>
+    </header>
+
+    <!-- Menu de Navegação com Links -->
+    <nav id="menuAcessoRapido" class="bg-escuro text-white py-4 px-4 sticky top-0 z-10 shadow-md">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-3">
+                <h2 class="text-lg font-semibold mb-0">Acesso Rápido:</h2>
+                <div class="flex flex-wrap gap-2">
+                    <!-- Botão para mostrar/ocultar menu -->
+                    <button id="btnMenu" onclick="alternarMenu()" class="bg-white text-escuro px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+                        <i class="fa fa-eye-slash mr-2"></i> Ocultar Acesso Rápido
+                    </button>
+                    <!-- Botão para mostrar/ocultar resumos -->
+                    <button id="btnResumos" onclick="alternarResumos()" class="bg-white text-escuro px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+                        <i class="fa fa-eye-slash mr-2"></i> Ocultar explicações resumidas
+                    </button>
+                </div>
+            </div>
+            <div id="linksMenu" class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <a href="#microcontrolador" class="link-menu">1. Microcontrolador</a>
+                <a href="#pinos-digitais" class="link-menu">2. Pinos Digitais</a>
+                <a href="#pinos-analogicos" class="link-menu">3. Pinos Analógicos</a>
+                <a href="#regulador-tensao" class="link-menu">4. Regulador de Tensão</a>
+                <a href="#cristal-oscilador" class="link-menu">5. Cristal Oscilador</a>
+                <a href="#conector-usb" class="link-menu">6. Conector USB</a>
+                <a href="#botao-reset" class="link-menu">7. Botão de Reset</a>
+                <a href="#pinos-alimentacao" class="link-menu">8. Pinos de Alimentação</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Introdução -->
+        <section class="secao-card">
+            <h2 class="subtitulo text-2xl mb-4">O que é o Arduino?</h2>
+            <p class="conteudo-texto">
+                O Arduino é uma plataforma de prototipagem eletrônica de código aberto, baseada em hardware e software flexíveis e fáceis de usar. 
+                Os componentes da placa trabalham em conjunto para receber entradas, processar informações e gerar saídas, permitindo criar projetos 
+                interativos, desde pequenos circuitos até sistemas complexos. Abaixo, explico cada parte com precisão.
+            </p>
+        </section>
+
+        <!-- Lista de Componentes -->
+
+        <!-- 1. Microcontrolador -->
+        <section id="microcontrolador" class="secao-card">
+            <h3 class="titulo-componente">1. Microcontrolador (ATmega328P - modelo Uno)</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Imagem -->
+                <div class="md:col-span-1 flex flex-col items-center justify-center">
+                    <div class="w-full h-48 bg-claro rounded-lg flex items-center justify-center mb-3 border border-gray-200">
+                        <i class="fa fa-microchip text-6xl text-arduino"></i>
+                    </div>
+                    <span class="text-sm text-gray-500 text-center">Imagem representativa do microcontrolador</span>
+                </div>
+
+                <!-- Explicação Grande -->
+                <div class="md:col-span-2">
+                    <h4 class="subtitulo">Explicação Detalhada</h4>
+                    <p class="conteudo-texto mb-4">
+                        É o cérebro da placa Arduino, um circuito integrado programável que controla todas as operações. Ele contém uma CPU, memórias e periféricos internos. 
+                        No modelo Arduino Uno, utiliza-se o ATmega328P, que possui: 32 KB de memória Flash (onde o programa é gravado), 2 KB de SRAM (memória temporária 
+                        usada durante a execução) e 1 KB de EEPROM (memória que mantém dados mesmo sem energia). Ele executa as instruções do código, lê sinais dos sensores, 
+                        processa dados e envia comandos para os atuadores, definindo o comportamento de todo o sistema. Opera com lógica digital (0 e 1) e trabalha com 
+                        tensões de referência específicas para garantir o funcionamento correto.
+                    </p>
+
+                    <!-- Explicação Resumida -->
+                    <div class="resumo-bloco">
+                        <h4 class="subtitulo">Explicação Resumida</h4>
+                        <p class="conteudo-texto bg-claro p-3 rounded-lg border-l-4 border-arduino">
+                            É o "cérebro" da placa: processa o código, recebe informações e controla todos os outros componentes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-4">
+                <a href="#" class="text-arduino hover:underline">↑ Voltar ao topo</a>
+            </div>
+        </section>
+
+        <!-- 2. Pinos de Entrada/Saída Digitais -->
+        <section id="pinos-digitais" class="secao-card">
+            <h3 class="titulo-componente">2. Pinos de Entrada/Saída Digitais</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 flex flex-col items-center justify-center">
+                    <div class="w-full h-48 bg-claro rounded-lg flex items-center justify-center mb-3 border border-gray-200">
+                        <i class="fa fa-th-large text-6xl text-arduino"></i>
+                    </div>
+                    <span class="text-sm text-gray-500 text-center">Imagem dos pinos digitais</span>
+                </div>
+
+                <div class="md:col-span-2">
+                    <h4 class="subtitulo">Explicação Detalhada</h4>
+                    <p class="conteudo-texto mb-4">
+                        São os terminais que permitem a comunicação entre o Arduino e o mundo externo. No Arduino Uno, existem 14 pinos digitais (numerados de 0 a 13), 
+                        que podem ser configurados como entrada ou saída através do código. Como entrada, eles detectam apenas dois estados: ALTO (tensão próxima a 5V) 
+                        ou BAIXO (tensão próxima a 0V), ideal para botões, sensores de presença ou chaves. Como saída, eles enviam esses mesmos níveis de tensão para 
+                        acionar componentes como LEDs, relés ou módulos. Além disso, os pinos 3, 5, 6, 9, 10 e 11 suportam a função PWM (Modulação por Largura de Pulso), 
+                        que simula saídas analógicas, permitindo controlar intensidade de luz ou velocidade de motores. Os pinos 0 e 1 também servem para comunicação serial.
+                    </p>
+
+                    <div class="resumo-bloco">
+                        <h4 class="subtitulo">Explicação Resumida</h4>
+                        <p class="conteudo-texto bg-claro p-3 rounded-lg border-l-4 border-arduino">
+                            Pinos que enviam ou recebem sinais de apenas dois estados (ligado/desligado); alguns permitem controle de intensidade.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-4">
+                <a href="#" class="text-arduino hover:underline">↑ Voltar ao topo</a>
+            </div>
+        </section>
+
+        <!-- 3. Pinos de Entrada Analógica -->
+        <section id="pinos-analogicos" class="secao-card">
+            <h3 class="titulo-componente">3. Pinos de Entrada Analógica</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 flex flex-col items-center justify-center">
+                    <div class="w-full h-48 bg-claro rounded-lg flex items-center justify-center mb-3 border border-gray-200">
+                        <i class="fa fa-line-chart text-6xl text-arduino"></i>
+                    </div>
+                    <span class="text-sm text-gray-500 text-center">Imagem dos pinos analógicos</span>
+                </div>
+
+                <div class="md:col-span-2">
+                    <h4 class="subtitulo">Explicação Detalhada</h4>
+                    <p class="conteudo-texto mb-4">
+                        No Arduino Uno, há 6 pinos de entrada analógica (A0 a A5). Diferente dos digitais, eles não trabalham apenas com ligado/desligado, mas leem valores 
+                        de tensão que variam continuamente entre 0V e 5V. Internamente, possuem um Conversor Analógico-Digital (ADC) de 10 bits, que transforma a tensão 
+                        medida em um número digital de 0 a 1023. Isso significa que cada unidade representa aproximadamente 4,9 mV. São usados para ler sensores que variam 
+                        sua saída, como potenciômetros, sensores de temperatura, umidade, luz ou pressão, onde precisamos saber o valor exato, não apenas se está ligado ou não. 
+                        Eles só funcionam como entrada, não como saída de sinal analógico.
+                    </p>
+
+                    <div class="resumo-bloco">
+                        <h4 class="subtitulo">Explicação Resumida</h4>
+                        <p class="conteudo-texto bg-claro p-3 rounded-lg border-l-4 border-arduino">
+                            Leem valores de tensão variáveis (não só ligado/desligado), usados para sensores que medem grandezas físicas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-4">
+                <a href="#" class="text-arduino hover:underline">↑ Voltar ao topo</a>
+            </div>
+        </section>
+
+        <!-- 4. Regulador de Tensão -->
+        <section id="regulador-tensao" class="secao-card">
+            <h3 class="titulo-componente">4. Regulador de Tensão</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 flex flex-col items-center justify-center">
+                    <div class="w-full h-48 bg-claro rounded-lg flex items-center justify-center mb-3 border border-gray-200">
+                        <i class="fa fa-battery-half text-6xl text-arduino"></i>
+                    </div>
+                    <span class="text-sm text-gray-500 text-center">Imagem do regulador de tensão</span>
+                </div>
+
+                <div class="md:col-span-2">
+                    <h4 class="subtitulo">Explicação Detalhada</h4>
+                    <p class="conteudo-texto mb-4">
+                        Responsável por manter a tensão de alimentação estável e segura para os componentes da placa. O Arduino pode ser alimentado externamente entre 7V e 12V 
+                        (pelo conector de alimentação), mas o microcontrolador e os circuitos internos operam em 5V. O regulador reduz essa tensão variável para exatos 5V ou 3,3V, 
+                        dependendo da versão, e também protege a placa contra picos de tensão ou inversão de polaridade, evitando danos aos componentes. Ele converte a energia 
+                        bruta da fonte em uma alimentação limpa e constante, essencial para que o sistema funcione sem erros ou reinícios inesperados.
+                    </p>
+
+                    <div class="resumo-bloco">
+                        <h4 class="subtitulo">Explicação Resumida</h4>
+                        <p class="conteudo-texto bg-claro p-3 rounded-lg border-l-4 border-arduino">
+                            Ajusta e estabiliza a energia recebida, garantindo que a placa receba a voltagem correta e segura.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-4">
+                <a href="#" class="text-arduino hover:underline">↑ Voltar ao topo</a>
+            </div>
+        </section>
+
+        <!-- 5. Cristal Oscilador -->
+        <section id="cristal-oscilador" class="secao-card">
+            <h3 class="titulo-componente">5. Cristal Oscilador</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 flex flex-col items-center justify-center">
+                    <div class="w-full h-48 bg-claro rounded-lg flex items-center justify-center mb-3 border border-gray-200">
+                        <i class="fa fa-clock-o text-6xl text-arduino"></i>
+                    </div>
+                    <span class="text-sm text-gray-500 text-center">Imagem do cristal oscilador</span>
+                </div>
+
+                <div class="md:col-span-2">
+                    <h4 class="subtitulo">Explicação Detalhada</h4>
+                    <p class="conteudo-texto mb-4">
+                        Funciona como o relógio do sistema, marcando o ritmo de todas as operações do microcontrolador. No Arduino Uno, é um cristal de 16 MHz, o que significa 
+                        que ele gera 16 milhões de pulsos por segundo. Cada instrução executada pelo processador leva um número definido de pulsos para ser concluída. 
+                        Sem esse componente, o microcontrolador não saberia em qual velocidade trabalhar, resultando em falhas na comunicação, tempos incorretos e funcionamento 
+                        instável. Ele garante precisão em funções como atrasos, contagens, temporizações e comunicação serial.
+                    </p>
+
+                    <div class="resumo-bloco">
+                        <h4 class="subtitulo">Explicação Resumida</h4>
+                        <p class="conteudo-texto bg-claro p-3 rounded-lg border-l-4 border-arduino">
+                            Define a velocidade de operação da placa, funcionando como um relógio que sincroniza todas as ações.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-4">
+                <a href="#" class="text-arduino hover:underline">↑ Voltar ao topo</a>
+            </div>
+        </section>
+
+        <!-- 6. Conector USB e Circuito de Programação -->
+        <section id="conector-usb" class="secao-card">
+            <h3 class="titulo-componente">6. Conector USB e Circuito de Programação</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 flex flex-col items-center justify-center">
+                    <div class="w-full h-48 bg-claro rounded-lg flex items-center justify-center mb-3 border border-gray-200">
+                        <i class="fa fa-usb text-6xl text-arduino"></i>
+                    </div>
+                    <span class="text-sm text-gray-500 text-center">Imagem do conector USB</span>
+                </div>
+
+                <div class="md:col-span-2">
+                    <h4 class="subtitulo">Explicação Detalhada</h4>
+                    <p class="conteudo-texto mb-4">
+                        O cabo USB serve para duas funções principais: enviar o código do computador para a memória do Arduino e fornecer energia (5V) para a placa durante 
+                        os testes. O circuito ao redor do conector conta com um chip auxiliar (como o ATmega16U2 no Uno R3) que funciona como uma ponte: ele converte os sinais 
+                        do padrão USB do computador para o padrão serial que o microcontrolador entende. Isso permite que o computador reconheça a placa, envie o programa 
+                        e receba dados de volta (usado para depuração e monitoramento). Também possui LEDs que indicam quando dados estão sendo enviados ou recebidos.
+                    </p>
+
+                    <div class="resumo-bloco">
+                        <h4 class="subtitulo">Explicação Resumida</h4>
+                        <p class="conteudo-texto bg-claro p-3 rounded-lg border-l-4 border-arduino">
+                            Permite gravar o código da placa e conectar ao computador, além de fornecer energia elétrica.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-4">
+                <a href="#" class="text-arduino hover:underline">↑ Voltar ao topo</a>
+            </div>
+        </section>
+
+        <!-- 7. Botão de Reset -->
+        <section id="botao-reset" class="secao-card">
+            <h3 class="titulo-componente">7. Botão de Reset</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 flex flex-col items-center justify-center">
+                    <div class="w-full h-48 bg-claro rounded-lg flex items-center justify-center mb-3 border border-gray-200">
+                        <i class="fa fa-refresh text-6xl text-arduino"></i>
+                    </div>
+                    <span class="text-sm text-gray-500 text-center">Imagem do botão de reset</span>
+                </div>
+
+                <div class="md:col-span-2">
+                    <h4 class="subtitulo">Explicação Detalhada</h4>
+                    <p class="conteudo-texto mb-4">
+                        Reinicia a execução do programa carregado no microcontrolador, sem apagar o código. Ao pressioná-lo, ele interrompe temporariamente a alimentação 
+                        do pino de reset do processador, fazendo com que o sistema volte ao estado inicial e execute o código novamente do começo. É muito útil quando o 
+                        programa entra em um loop infinito, apresenta comportamento inesperado ou quando queremos reiniciar o sistema sem desconectar a energia. 
+                        Funciona também automaticamente durante o processo de gravação de um novo código.
+                    </p>
+
+                    <div class="resumo-bloco">
+                        <h4 class="subtitulo">Explicação Resumida</h4>
+                        <p class="conteudo-texto bg-claro p-3 rounded-lg border-l-4 border-arduino">
+                            Reinicia o funcionamento da placa, fazendo o programa começar do início novamente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-4">
+                <a href="#" class="text-arduino hover:underline">↑ Voltar ao topo</a>
+            </div>
+        </section>
+
+        <!-- 8. Pinos de Alimentação (VCC, GND, 3.3V, 5V) -->
+        <section id="pinos-alimentacao" class="secao-card">
+            <h3 class="titulo-componente">8. Pinos de Alimentação</h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 flex flex-col items-center justify-center">
+                    <div class="w-full h-48 bg-claro rounded-lg flex items-center justify-center mb-3 border border-gray-200">
+                        <i class="fa fa-plug text-6xl text-arduino"></i>
+                    </div>
+                    <span class="text-sm text-gray-500 text-center">Imagem dos pinos de energia</span>
+                </div>
+
+                <div class="md:col-span-2">
+                    <h4 class="subtitulo">Explicação Detalhada</h4>
+                    <p class="conteudo-texto mb-4">
+                        São terminais que distribuem energia para a placa e para componentes externos conectados a ela:
+                        <br><strong>5V:</strong> Saída de tensão regulada principal, usada para alimentar a maioria dos sensores e módulos compatíveis com Arduino.
+                        <br><strong>3.3V:</strong> Saída de tensão menor, essencial para componentes que trabalham com essa tensão para não queimarem.
+                        <br><strong>GND (Terra):</strong> Ponto de referência zero volt, necessário para fechar o circuito elétrico. Todos os componentes devem compartilhar o mesmo GND.
+                        <br><strong>Vin:</strong> Entrada de tensão bruta, usada quando se alimenta a placa por fora do conector principal (ex: bateria de 9V).
+                    </p>
+
+                    <div class="resumo-bloco">
+                        <h4 class="subtitulo">Explicação Resumida</h4>
+                        <p class="conteudo-texto bg-claro p-3 rounded-lg border-l-4 border-arduino">
+                            Fornecem energia em níveis diferentes (5V, 3.3V) e o ponto de referência (terra) para os circuitos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-4">
+                <a href="#" class="text-arduino hover:underline">↑ Voltar ao topo</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-escuro text-white py-6 px-4 text-center mt-10">
+        <p>Guia de Componentes do Arduino - Desenvolvido para aprendizado e projetos</p>
+        <p class="mt-2">
+            <a href="cartao_apresentacao.html" class="text-white hover:underline">Acessar meu cartão de apresentação</a>
+        </p>
+    </footer>
+
+    <!-- Script para mostrar/ocultar resumos e menu -->
+    <script>
+        // Alternar explicações resumidas
+        function alternarResumos() {
+            const blocos = document.querySelectorAll('.resumo-bloco');
+            const botao = document.getElementById('btnResumos');
+            
+            blocos.forEach(bloco => {
+                bloco.classList.toggle('hidden');
+            });
+
+            if (botao.innerText.includes('Ocultar')) {
+                botao.innerHTML = '<i class="fa fa-eye mr-2"></i> Mostrar explicações resumidas';
+            } else {
+                botao.innerHTML = '<i class="fa fa-eye-slash mr-2"></i> Ocultar explicações resumidas';
+            }
+        }
+
+        // Alternar menu de acesso rápido
+        function alternarMenu() {
+            const links = document.getElementById('linksMenu');
+            const botao = document.getElementById('btnMenu');
+            
+            links.classList.toggle('hidden');
+
+            if (botao.innerText.includes('Ocultar')) {
+                botao.innerHTML = '<i class="fa fa-eye mr-2"></i> Mostrar Acesso Rápido';
+            } else {
+                botao.innerHTML = '<i class="fa fa-eye-slash mr-2"></i> Ocultar Acesso Rápido';
+            }
+        }
+    </script>
+</body>
+</html>
